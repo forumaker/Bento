@@ -32,4 +32,4 @@ composer require forumaker/bento:"*"
 ## 🔗 Links
 - [**GitHub Repository**](https://github.com/forumaker/bento)
 - [**Packagist**](https://packagist.org/packages/forumaker/bento)
-- [**Discuss**](https://discuss.flarum.org/d/)
+- [**Discuss**](https://discuss.flarum.org/d/39349-bento-tile-navigation-for-the-tags-page)
