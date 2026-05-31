@@ -1,0 +1,48 @@
+{
+  "name": "forumaker/bento",
+  "description": "Replaces the default text navigation on the tags page with a tile grid",
+  "type": "flarum-extension",
+  "keywords": ["flarum", "flarum-extension", "tags", "grid", "tile", "navigation"],
+  "license": "MIT",
+  "homepage": "https://github.com/forumaker/Bento",
+  "support": {
+    "issues": "https://github.com/forumaker/Bento/issues",
+    "source": "https://github.com/forumaker/Bento",
+    "forum": "https://discuss.flarum.org/"
+  },
+  "authors": [
+    {
+      "name": "forumaker",
+      "role": "Developer",
+      "email": "arsenyuxw@gmail.com",
+      "homepage": "https://github.com/forumaker"
+    }
+  ],
+  "require": {
+    "php": ">=8.2",
+    "flarum/core": "^2.0",
+    "flarum/tags": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "forumaker\\Bento\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "2.x-dev"
+    },
+    "flarum-extension": {
+      "title": "Bento",
+      "category": "theme",
+      "icon": {
+        "name": "fas fa-spiral",
+        "backgroundColor": "#44633F",
+        "color": "#ffffff"
+      }
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}

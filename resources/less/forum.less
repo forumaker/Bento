@@ -1,0 +1,105 @@
+.Bento-sidebar {
+  width: 100%;
+  max-width: 100%;
+  float: none;
+  box-sizing: border-box;
+}
+
+.Bento-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--bento-cols, 3), minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+
+.Bento-tile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--control-bg);
+  background: var(--body-bg);
+  color: var(--text-color);
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  appearance: none;
+  transition: border-color 0.15s ease;
+
+  &:hover:not(.Bento-tile--disabled),
+  &:focus-visible:not(.Bento-tile--disabled) {
+    border-color: var(--primary-color);
+    text-decoration: none;
+    color: var(--text-color);
+    outline: none;
+  }
+
+  &--active {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: color-mix(in srgb, var(--primary-color) 6%, var(--body-bg));
+
+    .Bento-tile-icon {
+      background: color-mix(in srgb, var(--primary-color) 18%, transparent);
+      color: var(--primary-color);
+    }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.Bento-tile--primary {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--body-bg);
+
+  &:hover:not(.Bento-tile--disabled) {
+    background: color-mix(in srgb, var(--primary-color) 88%, #000);
+    border-color: color-mix(in srgb, var(--primary-color) 88%, #000);
+    color: var(--body-bg);
+  }
+
+  .Bento-tile-icon {
+    background: color-mix(in srgb, var(--body-bg) 20%, transparent);
+    color: var(--body-bg);
+  }
+}
+
+.Bento-tile-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  background: color-mix(in srgb, var(--primary-color) 10%, transparent);
+  color: var(--primary-color);
+  box-sizing: border-box;
+  transition: background 0.15s, color 0.15s;
+
+  i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+}
+
+.Bento-tile-label {
+  flex: 1;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.3;
+}

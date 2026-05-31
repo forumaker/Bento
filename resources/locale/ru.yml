@@ -1,0 +1,8 @@
+forumaker-bento:
+  admin:
+    settings:
+      section_grid: "Плитки"
+      columns_desktop: "Количество плиток в ряд"
+      columns_desktop_help: "От 2 до 6 плиток в одну строку на десктопе. На мобильной версии используется стандартный вариант Flarum"
+      plain_create_button: "Убрать заливку у кнопки «Создать дискуссию»"
+      plain_create_button_help: "Сделать её визуально идентичной соседним плиткам – без цветного фона"
