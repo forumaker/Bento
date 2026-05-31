@@ -13,6 +13,12 @@ type TileData = {
   isActive: boolean;
 };
 
+function normalizeIcon(icon: string): string {
+  if (!icon) return 'fas fa-circle';
+  if (icon.includes(' ')) return icon;
+  return `fas fa-${icon}`;
+}
+
 function extractItem(vnode: any): TileData | null {
   if (!vnode || typeof vnode !== 'object') return null;
 
@@ -24,7 +30,7 @@ function extractItem(vnode: any): TileData | null {
     : [];
 
   return {
-    icon: attrs.icon || 'fas fa-circle',
+    icon: normalizeIcon(attrs.icon || ''),
     label: children.find((c: any) => c != null && typeof c !== 'symbol') ?? null,
     href: attrs.href,
     onclick: attrs.onclick,
@@ -51,7 +57,7 @@ function renderTile(data: TileData | null, key: string): Mithril.Children {
   const inner = (
     <>
       <span className="Bento-tile-icon" aria-hidden="true">
-        <i className={icon} />
+        <i className={`icon ${icon}`} />
       </span>
       <span className="Bento-tile-label">{label}</span>
     </>
