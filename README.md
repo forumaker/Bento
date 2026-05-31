@@ -16,7 +16,7 @@ Replaces the default text navigation on the tags page with a clean tile grid. **
 
 ___
 
-<img width="1300" height="180" alt="image" src="https://github.com/user-attachments/assets/3073ac76-3139-42af-b070-a20e7b50cb61" />
+<img width="1300" height="180" alt="image" src="https://github.com/user-attachments/assets/c029a7f0-3f10-4f19-93e1-34fc56fa7cb1" />
 
 
 
