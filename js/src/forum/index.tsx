@@ -22,7 +22,9 @@ function normalizeIcon(icon: string): string {
 function extractItem(vnode: any): TileData | null {
   if (!vnode || typeof vnode !== 'object') return null;
 
-  const attrs = vnode.attrs || {};
+  const attrs = vnode.attrs;
+  if (!attrs || typeof attrs !== 'object') return null;
+
   const children: any[] = Array.isArray(vnode.children)
     ? vnode.children
     : vnode.children != null
@@ -34,32 +36,32 @@ function extractItem(vnode: any): TileData | null {
     label: children.find((c: any) => c != null && typeof c !== 'symbol') ?? null,
     href: attrs.href,
     onclick: attrs.onclick,
-    isPrimary: (attrs.className || '').includes('Button--primary'),
+    isPrimary: typeof attrs.className === 'string' && attrs.className.includes('Button--primary'),
     isDisabled: attrs.disabled === true,
     isActive: attrs.active === true,
   };
 }
 
-function renderTile(data: TileData | null, key: string): Mithril.Children {
+function renderItem(data: TileData | null, key: string, prefix: string): Mithril.Children {
   if (!data) return null;
 
   const { icon, label, href, onclick, isPrimary, isDisabled, isActive } = data;
 
   const cls = [
-    'Bento-tile',
-    isPrimary && 'Bento-tile--primary',
-    isActive && 'Bento-tile--active',
-    isDisabled && 'Bento-tile--disabled',
+    prefix,
+    isPrimary && `${prefix}--primary`,
+    isActive && `${prefix}--active`,
+    isDisabled && `${prefix}--disabled`,
   ]
     .filter(Boolean)
     .join(' ');
 
   const inner = (
     <>
-      <span className="Bento-tile-icon" aria-hidden="true">
+      <span className={`${prefix}-icon`} aria-hidden="true">
         <i className={`icon ${icon}`} />
       </span>
-      <span className="Bento-tile-label">{label}</span>
+      <span className={`${prefix}-label`}>{label}</span>
     </>
   );
 
@@ -89,28 +91,52 @@ function renderTile(data: TileData | null, key: string): Mithril.Children {
 
 app.initializers.add('forumaker-bento', () => {
   override(IndexSidebar.prototype, 'view', function (this: any, original: () => any) {
-    if (!app.current.matches(TagsPage)) return original();
+    if (!TagsPage || !app.current.matches(TagsPage)) return original();
     if (window.matchMedia?.('(max-width: 768px)')?.matches) return original();
 
-    const cols = Number(app.forum.attribute('forumaker-bento.columns_desktop') || 4);
+    const cols       = Number(app.forum.attribute('forumaker-bento.columns_desktop') || 4);
+    const layout     = (app.forum.attribute('forumaker-bento.layout') as string)      || 'tiles';
+    const pillShape = (app.forum.attribute('forumaker-bento.pill_shape') as string) || 'capsule';
     const plainCreate = app.forum.attribute<boolean>('forumaker-bento.plain_create_button');
 
     const newDiscData = extractItem(this.items().get('newDiscussion'));
     if (newDiscData && plainCreate) newDiscData.isPrimary = false;
 
-    const tiles: Mithril.Vnode[] = [];
-
-    const newDiscTile = renderTile(newDiscData, 'newDiscussion');
-    if (newDiscTile) tiles.push(newDiscTile as Mithril.Vnode);
-
+    const allItems: Array<{ data: TileData; key: string }> = [];
+    if (newDiscData) allItems.push({ data: newDiscData, key: 'newDiscussion' });
     for (const [i, vnode] of (this.navItems().toArray() as any[]).entries()) {
-      const tile = renderTile(extractItem(vnode), `nav-${i}`);
-      if (tile) tiles.push(tile as Mithril.Vnode);
+      const d = extractItem(vnode);
+      if (d) allItems.push({ data: d, key: `nav-${i}` });
+    }
+
+    const navClass = 'IndexPage-sidebar Bento-sidebar';
+
+    if (layout === 'pills') {
+      const containerClass = [
+        'Bento-pills',
+        pillShape === 'rounded' && 'Bento-pills--rounded',
+      ].filter(Boolean).join(' ');
+
+      return (
+        <nav
+          className={navClass}
+          style={{ '--bento-cols': String(cols) } as any}
+        >
+          <div className={containerClass}>
+            {allItems.map(({ data, key }) => renderItem(data, key, 'Bento-pill'))}
+          </div>
+        </nav>
+      );
     }
 
     return (
-      <nav className="IndexPage-sidebar Bento-sidebar" style={{ '--bento-cols': String(cols) } as any}>
-        <div className="Bento-grid">{tiles}</div>
+      <nav
+        className={navClass}
+        style={{ '--bento-cols': String(cols) } as any}
+      >
+        <div className="Bento-grid">
+          {allItems.map(({ data, key }) => renderItem(data, key, 'Bento-tile'))}
+        </div>
       </nav>
     );
   });
