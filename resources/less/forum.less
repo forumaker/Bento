@@ -5,6 +5,7 @@
   box-sizing: border-box;
 }
 
+
 .Bento-grid {
   display: grid;
   grid-template-columns: repeat(var(--bento-cols, 3), minmax(0, 1fr));
@@ -26,7 +27,6 @@
   box-sizing: border-box;
   width: 100%;
   font-size: 14px;
-  font-weight: 600;
   text-align: left;
   appearance: none;
   transition: border-color 0.15s ease;
@@ -92,7 +92,6 @@
     align-items: center;
     justify-content: center;
     line-height: 1;
-    font-weight: 900;
   }
 }
 
@@ -103,4 +102,99 @@
   overflow-wrap: break-word;
   word-break: break-word;
   line-height: 1.3;
+  font-weight: 600;
+}
+
+.Bento-pills {
+  display: grid;
+  grid-template-columns: repeat(var(--bento-cols, 4), minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+
+.Bento-pills--rounded .Bento-pill {
+  border-radius: 10px;
+}
+
+.Bento-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 99px;
+  border: 1px solid var(--control-bg);
+  background: transparent;
+  color: var(--text-color);
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 13px;
+  text-align: center;
+  appearance: none;
+  transition: border-color 0.15s ease;
+  overflow: hidden;
+
+  &:hover:not(.Bento-pill--disabled),
+  &:focus-visible:not(.Bento-pill--disabled) {
+    border-color: var(--primary-color);
+    text-decoration: none;
+    color: var(--text-color);
+    outline: none;
+  }
+
+  &--active {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+
+    .Bento-pill-icon {
+      color: var(--primary-color);
+    }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.Bento-pill--primary {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--body-bg);
+
+  &:hover:not(.Bento-pill--disabled) {
+    background: color-mix(in srgb, var(--primary-color) 88%, #000);
+    border-color: color-mix(in srgb, var(--primary-color) 88%, #000);
+    color: var(--body-bg);
+  }
+
+  .Bento-pill-icon {
+    color: var(--body-bg);
+  }
+}
+
+.Bento-pill-icon {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s;
+
+  i {
+    display: flex;
+    line-height: 1;
+  }
+}
+
+.Bento-pill-label {
+  flex: 0 0 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.3;
+  font-weight: 600;
 }
