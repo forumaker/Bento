@@ -1,11 +1,11 @@
 # 🍱 Bento for Flarum
-Replaces the default text navigation on the tags page with a clean tile grid. **Supports Flarum 2.x**
+Replaces the default text navigation on the tags page with a tile grid or pill row. **Supports Flarum 2.x**
 
 ![License](https://img.shields.io/badge/license-MIT-blue) ![Packagist Version](https://img.shields.io/packagist/v/forumaker/bento) ![Downloads](https://img.shields.io/packagist/dt/forumaker/bento)
 
 
 ## 🚀 Features
-- 🧩 Tile grid replaces the default navItems list on the tags page
+- 🧩 Tile grid or pill row — choose your navigation style
 - 🖥️ Configurable number of columns per row (2 – 6) for desktop
 - 📱 Standard Flarum navigation preserved on mobile
 - 🔌 Compatible with Menu Control and MagicSlider
@@ -18,7 +18,9 @@ ___
 
 <img width="1300" height="180" alt="image" src="https://github.com/user-attachments/assets/c029a7f0-3f10-4f19-93e1-34fc56fa7cb1" />
 
+___
 
+<img width="1300" height="120" alt="image" src="https://github.com/user-attachments/assets/70cd92eb-79d0-4247-9bc8-a2d85b69cd27" />
 
 
 ## 📦 Installation
