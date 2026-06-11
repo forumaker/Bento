@@ -1,6 +1,6 @@
 {
   "name": "forumaker/bento",
-  "description": "Replaces the default text navigation on the tags page with a tile grid",
+  "description": "Replaces the default navigation on the tags page with tiles, pills, or a horizontal slider",
   "type": "flarum-extension",
   "keywords": ["flarum", "flarum-extension", "tags", "grid", "tile", "navigation"],
   "license": "MIT",

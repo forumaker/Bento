@@ -7,13 +7,13 @@ const COLUMN_OPTIONS = ['2', '3', '4', '5', '6'];
 const LAYOUT_OPTIONS = [
   { value: 'tiles', icon: 'fas fa-th' },
   { value: 'pills', icon: 'fas fa-stream' },
+  { value: 'slider', icon: 'fas fa-arrows-alt-h' },
 ] as const;
 
 const PILL_SHAPE_OPTIONS = [
   { value: 'capsule', icon: 'fas fa-minus' },
   { value: 'rounded', icon: 'fas fa-square' },
 ] as const;
-
 
 function isTrue(v: unknown): boolean {
   return v === true || v === 1 || v === '1' || v === 'true';
@@ -62,7 +62,7 @@ export default class BentoSettingsPage extends ExtensionPage {
                 </div>
               </div>
 
-              {layout === 'pills' && (
+              {(layout === 'pills' || layout === 'slider') && (
                 <div className="Form-group">
                   <label>{app.translator.trans('forumaker-bento.admin.settings.pill_shape')}</label>
                   <p className="helpText">
@@ -97,27 +97,29 @@ export default class BentoSettingsPage extends ExtensionPage {
             </h3>
             <div className="Bento-SettingsSection-content">
 
-              <div className="Form-group">
-                <label>{app.translator.trans('forumaker-bento.admin.settings.columns_desktop')}</label>
-                <p className="helpText">
-                  {app.translator.trans('forumaker-bento.admin.settings.columns_desktop_help')}
-                </p>
-                <div className="Bento-ColumnPicker">
-                  {COLUMN_OPTIONS.map((n) => {
-                    const active = String(this.setting('forumaker-bento.columns_desktop')() || '4') === n;
-                    return (
-                      <button
-                        key={n}
-                        type="button"
-                        className={'Bento-ColumnBtn' + (active ? ' is-active' : '')}
-                        onclick={() => this.setting('forumaker-bento.columns_desktop')(n)}
-                      >
-                        {n}
-                      </button>
-                    );
-                  })}
+              {layout !== 'slider' && (
+                <div className="Form-group">
+                  <label>{app.translator.trans('forumaker-bento.admin.settings.columns_desktop')}</label>
+                  <p className="helpText">
+                    {app.translator.trans('forumaker-bento.admin.settings.columns_desktop_help')}
+                  </p>
+                  <div className="Bento-ColumnPicker">
+                    {COLUMN_OPTIONS.map((n) => {
+                      const active = String(this.setting('forumaker-bento.columns_desktop')() || '4') === n;
+                      return (
+                        <button
+                          key={n}
+                          type="button"
+                          className={'Bento-ColumnBtn' + (active ? ' is-active' : '')}
+                          onclick={() => this.setting('forumaker-bento.columns_desktop')(n)}
+                        >
+                          {n}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className="Form-group">
                 <Switch
