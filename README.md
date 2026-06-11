@@ -12,15 +12,25 @@ Replaces the default navigation on the tags page with tiles, pills, or a horizon
 
 
 ## 📸 Screenshots
+<img width="1230" height="470" alt="image" src="https://github.com/user-attachments/assets/6da49f87-6239-4ef5-a45e-11ec3ea9ca04" />
+
+___
+
 <img width="1230" height="395" alt="image" src="https://github.com/user-attachments/assets/c92e54b0-737b-4237-8104-2558c428af09" />
 
 ___
 
-<img width="1300" height="180" alt="image" src="https://github.com/user-attachments/assets/c029a7f0-3f10-4f19-93e1-34fc56fa7cb1" />
+<img width="1300" height="180" alt="image" src="https://github.com/user-attachments/assets/84ee7d5e-2950-41bf-acc1-8b61193f1721" />
 
 ___
 
-<img width="1300" height="120" alt="image" src="https://github.com/user-attachments/assets/70cd92eb-79d0-4247-9bc8-a2d85b69cd27" />
+<img width="1300" height="120" alt="image" src="https://github.com/user-attachments/assets/6c930e22-3902-4918-8433-c6a37273c54a" />
+
+
+___
+
+<img width="1300" height="85" alt="image" src="https://github.com/user-attachments/assets/ac19e142-4ccd-479e-98f4-ebeb74163987" />
+
 
 
 ## 📦 Installation
