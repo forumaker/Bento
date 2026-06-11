@@ -8,7 +8,6 @@ Replaces the default navigation on the tags page with tiles, pills, or a horizon
 - 🧩 Three navigation styles — tile grid, pill row, or horizontal slider
 - 🖥️ Configurable number of columns per row (2 – 6) for desktop
 - 📱 Standard Flarum navigation preserved on mobile
-- 🔌 Compatible with Menu Control and MagicSlider
 
 
 ## 📸 Screenshots
