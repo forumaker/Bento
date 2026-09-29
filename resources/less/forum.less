@@ -58,17 +58,23 @@
 .Bento-tile--primary {
   background: var(--primary-color);
   border-color: var(--primary-color);
-  color: var(--body-bg);
+  // Not var(--body-bg) — that's the page background (white in a light
+  // theme), not a contrast-safe text color. Flarum core already computes
+  // the correct dark/light pick for a primary button via its YIQ check
+  // (see core's root.less, --button-primary-color) — reuse that instead of
+  // assuming white always reads against --primary-color: a light/mid
+  // primary color (e.g. amber, yellow, lime) needs dark text instead.
+  color: var(--button-primary-color, var(--body-bg));
 
   &:hover:not(.Bento-tile--disabled) {
     background: color-mix(in srgb, var(--primary-color) 88%, #000);
     border-color: color-mix(in srgb, var(--primary-color) 88%, #000);
-    color: var(--body-bg);
+    color: var(--button-primary-color, var(--body-bg));
   }
 
   .Bento-tile-icon {
-    background: color-mix(in srgb, var(--body-bg) 20%, transparent);
-    color: var(--body-bg);
+    background: color-mix(in srgb, var(--button-primary-color, var(--body-bg)) 20%, transparent);
+    color: var(--button-primary-color, var(--body-bg));
   }
 }
 
@@ -162,16 +168,19 @@
 .Bento-pill--primary {
   background: var(--primary-color);
   border-color: var(--primary-color);
-  color: var(--body-bg);
+  // See .Bento-tile--primary above — --button-primary-color is Flarum
+  // core's own contrast-checked pick for text on --primary-color, not the
+  // page background color.
+  color: var(--button-primary-color, var(--body-bg));
 
   &:hover:not(.Bento-pill--disabled) {
     background: color-mix(in srgb, var(--primary-color) 88%, #000);
     border-color: color-mix(in srgb, var(--primary-color) 88%, #000);
-    color: var(--body-bg);
+    color: var(--button-primary-color, var(--body-bg));
   }
 
   .Bento-pill-icon {
-    color: var(--body-bg);
+    color: var(--button-primary-color, var(--body-bg));
   }
 
   .Bento-pill-label {
