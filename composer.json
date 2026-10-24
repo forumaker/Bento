@@ -14,13 +14,13 @@
     {
       "name": "forumaker",
       "role": "Developer",
-      "email": "arseninrus@gmail.com",
+      "email": "arsenygpt@gmail.com",
       "homepage": "https://github.com/forumaker"
     }
   ],
   "require": {
-    "php": ">=8.3",
-    "flarum/core": "^2.0",
+    "php": "^8.3",
+    "flarum/core": "^2.0.0",
     "flarum/tags": "^2.0"
   },
   "autoload": {

@@ -3,13 +3,19 @@
   "include": [
     "src/**/*",
     "../vendor/*/*/js/dist-typings/@types/**/*",
-    "@types/**/*"
+    "@types/**/*",
+    "../vendor/flarum/tags/js/dist-typings/@types/**/*"
   ],
   "compilerOptions": {
     "declarationDir": "./dist-typings",
     "baseUrl": ".",
     "paths": {
-      "flarum/*": ["../vendor/flarum/core/js/dist-typings/*"]
+      "flarum/*": [
+        "../vendor/flarum/core/js/dist-typings/*"
+      ],
+      "ext:flarum/tags/*": [
+        "../vendor/flarum/tags/js/dist-typings/*"
+      ]
     }
   }
 }

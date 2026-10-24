@@ -2,6 +2,7 @@ import app from 'flarum/forum/app';
 import { override } from 'flarum/common/extend';
 import IndexSidebar from 'flarum/forum/components/IndexSidebar';
 import TagsPage from 'ext:flarum/tags/forum/components/TagsPage';
+import type Mithril from 'mithril';
 
 type TileData = {
   icon: string;
@@ -25,11 +26,7 @@ function extractItem(vnode: any): TileData | null {
   const attrs = vnode.attrs;
   if (!attrs || typeof attrs !== 'object') return null;
 
-  const children: any[] = Array.isArray(vnode.children)
-    ? vnode.children
-    : vnode.children != null
-    ? [vnode.children]
-    : [];
+  const children: any[] = Array.isArray(vnode.children) ? vnode.children : vnode.children != null ? [vnode.children] : [];
 
   return {
     icon: normalizeIcon(attrs.icon || ''),
@@ -47,12 +44,7 @@ function renderItem(data: TileData | null, key: string, prefix: string): Mithril
 
   const { icon, label, href, onclick, isPrimary, isDisabled, isActive } = data;
 
-  const cls = [
-    prefix,
-    isPrimary && `${prefix}--primary`,
-    isActive && `${prefix}--active`,
-    isDisabled && `${prefix}--disabled`,
-  ]
+  const cls = [prefix, isPrimary && `${prefix}--primary`, isActive && `${prefix}--active`, isDisabled && `${prefix}--disabled`]
     .filter(Boolean)
     .join(' ');
 
@@ -123,40 +115,23 @@ class BentoSlider implements Mithril.ClassComponent<SliderAttrs> {
     if (!this.track) return;
     const { scrollLeft, clientWidth, scrollWidth } = this.track;
     const max = scrollWidth - clientWidth;
-    const target = dir > 0
-      ? Math.min(scrollLeft + clientWidth, max)
-      : Math.max(scrollLeft - clientWidth, 0);
+    const target = dir > 0 ? Math.min(scrollLeft + clientWidth, max) : Math.max(scrollLeft - clientWidth, 0);
     this.track.scrollTo({ left: target, behavior: 'smooth' });
   }
 
   view({ attrs }: Mithril.Vnode<SliderAttrs, this>) {
-    const cls = [
-      'Bento-slider',
-      attrs.pillShape === 'rounded' && 'Bento-slider--rounded',
-    ].filter(Boolean).join(' ');
+    const cls = ['Bento-slider', attrs.pillShape === 'rounded' && 'Bento-slider--rounded'].filter(Boolean).join(' ');
 
     return (
       <div className={cls}>
         {this.canLeft && (
-          <button
-            type="button"
-            className="Bento-slider-arrow Bento-slider-arrow--left"
-            onclick={() => this.scroll(-1)}
-            aria-hidden="true"
-          >
+          <button type="button" className="Bento-slider-arrow Bento-slider-arrow--left" onclick={() => this.scroll(-1)} aria-hidden="true">
             <i className="fas fa-chevron-left" />
           </button>
         )}
-        <div className="Bento-slider-track">
-          {attrs.items.map(({ data, key }) => renderItem(data, key, 'Bento-pill'))}
-        </div>
+        <div className="Bento-slider-track">{attrs.items.map(({ data, key }) => renderItem(data, key, 'Bento-pill'))}</div>
         {this.canRight && (
-          <button
-            type="button"
-            className="Bento-slider-arrow Bento-slider-arrow--right"
-            onclick={() => this.scroll(1)}
-            aria-hidden="true"
-          >
+          <button type="button" className="Bento-slider-arrow Bento-slider-arrow--right" onclick={() => this.scroll(1)} aria-hidden="true">
             <i className="fas fa-chevron-right" />
           </button>
         )}
@@ -166,13 +141,13 @@ class BentoSlider implements Mithril.ClassComponent<SliderAttrs> {
 }
 
 app.initializers.add('forumaker-bento', () => {
-  override(IndexSidebar.prototype, 'view', function (this: any, original: () => any) {
+  override(IndexSidebar.prototype, 'view', function (this: any, original: (...args: any[]) => any) {
     if (!TagsPage || !app.current.matches(TagsPage)) return original();
     if (window.matchMedia?.('(max-width: 768px)')?.matches) return original();
 
-    const cols        = Number(app.forum.attribute('forumaker-bento.columns_desktop') || 4);
-    const layout      = (app.forum.attribute('forumaker-bento.layout') as string) || 'tiles';
-    const pillShape   = (app.forum.attribute('forumaker-bento.pill_shape') as string) || 'capsule';
+    const cols = Number(app.forum.attribute('forumaker-bento.columns_desktop') || 4);
+    const layout = (app.forum.attribute('forumaker-bento.layout') as string) || 'tiles';
+    const pillShape = (app.forum.attribute('forumaker-bento.pill_shape') as string) || 'capsule';
     const plainCreate = app.forum.attribute<boolean>('forumaker-bento.plain_create_button');
 
     const newDiscData = extractItem(this.items().get('newDiscussion'));
@@ -188,33 +163,22 @@ app.initializers.add('forumaker-bento', () => {
     const navClass = 'IndexPage-sidebar Bento-sidebar';
 
     if (layout === 'slider') {
-      return (
-        <nav className={navClass}>
-          {m(BentoSlider, { items: allItems, pillShape })}
-        </nav>
-      );
+      return <nav className={navClass}>{m(BentoSlider, { items: allItems, pillShape })}</nav>;
     }
 
     if (layout === 'pills') {
-      const containerClass = [
-        'Bento-pills',
-        pillShape === 'rounded' && 'Bento-pills--rounded',
-      ].filter(Boolean).join(' ');
+      const containerClass = ['Bento-pills', pillShape === 'rounded' && 'Bento-pills--rounded'].filter(Boolean).join(' ');
 
       return (
         <nav className={navClass} style={{ '--bento-cols': String(cols) } as any}>
-          <div className={containerClass}>
-            {allItems.map(({ data, key }) => renderItem(data, key, 'Bento-pill'))}
-          </div>
+          <div className={containerClass}>{allItems.map(({ data, key }) => renderItem(data, key, 'Bento-pill'))}</div>
         </nav>
       );
     }
 
     return (
       <nav className={navClass} style={{ '--bento-cols': String(cols) } as any}>
-        <div className="Bento-grid">
-          {allItems.map(({ data, key }) => renderItem(data, key, 'Bento-tile'))}
-        </div>
+        <div className="Bento-grid">{allItems.map(({ data, key }) => renderItem(data, key, 'Bento-tile'))}</div>
       </nav>
     );
   });

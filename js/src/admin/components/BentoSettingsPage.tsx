@@ -26,24 +26,20 @@ export default class BentoSettingsPage extends ExtensionPage {
 
   content() {
     const plainCreate = isTrue(this.setting('forumaker-bento.plain_create_button')());
-    const layout      = (this.setting('forumaker-bento.layout')() as string) || 'tiles';
+    const layout = (this.setting('forumaker-bento.layout')() as string) || 'tiles';
 
     return (
       <div className="BentoSettingsPage">
         <div className="BentoSettingsPage-content">
-
           <section className="Bento-SettingsSection">
             <h3>
               <i className="fas fa-paint-brush" />
               {app.translator.trans('forumaker-bento.admin.settings.section_layout')}
             </h3>
             <div className="Bento-SettingsSection-content">
-
               <div className="Form-group">
                 <label>{app.translator.trans('forumaker-bento.admin.settings.layout')}</label>
-                <p className="helpText">
-                  {app.translator.trans('forumaker-bento.admin.settings.layout_help')}
-                </p>
+                <p className="helpText">{app.translator.trans('forumaker-bento.admin.settings.layout_help')}</p>
                 <div className="Bento-LayoutPicker">
                   {LAYOUT_OPTIONS.map(({ value, icon }) => {
                     const active = layout === value;
@@ -65,9 +61,7 @@ export default class BentoSettingsPage extends ExtensionPage {
               {(layout === 'pills' || layout === 'slider') && (
                 <div className="Form-group">
                   <label>{app.translator.trans('forumaker-bento.admin.settings.pill_shape')}</label>
-                  <p className="helpText">
-                    {app.translator.trans('forumaker-bento.admin.settings.pill_shape_help')}
-                  </p>
+                  <p className="helpText">{app.translator.trans('forumaker-bento.admin.settings.pill_shape_help')}</p>
                   <div className="Bento-LayoutPicker">
                     {PILL_SHAPE_OPTIONS.map(({ value, icon }) => {
                       const active = (this.setting('forumaker-bento.pill_shape')() || 'capsule') === value;
@@ -86,7 +80,6 @@ export default class BentoSettingsPage extends ExtensionPage {
                   </div>
                 </div>
               )}
-
             </div>
           </section>
 
@@ -96,13 +89,10 @@ export default class BentoSettingsPage extends ExtensionPage {
               {app.translator.trans('forumaker-bento.admin.settings.section_grid')}
             </h3>
             <div className="Bento-SettingsSection-content">
-
               {layout !== 'slider' && (
                 <div className="Form-group">
                   <label>{app.translator.trans('forumaker-bento.admin.settings.columns_desktop')}</label>
-                  <p className="helpText">
-                    {app.translator.trans('forumaker-bento.admin.settings.columns_desktop_help')}
-                  </p>
+                  <p className="helpText">{app.translator.trans('forumaker-bento.admin.settings.columns_desktop_help')}</p>
                   <div className="Bento-ColumnPicker">
                     {COLUMN_OPTIONS.map((n) => {
                       const active = String(this.setting('forumaker-bento.columns_desktop')() || '4') === n;
@@ -122,19 +112,11 @@ export default class BentoSettingsPage extends ExtensionPage {
               )}
 
               <div className="Form-group">
-                <Switch
-                  state={plainCreate}
-                  onchange={(v: boolean) =>
-                    this.setting('forumaker-bento.plain_create_button')(v ? '1' : '0')
-                  }
-                >
+                <Switch state={plainCreate} onchange={(v: boolean) => this.setting('forumaker-bento.plain_create_button')(v ? '1' : '0')}>
                   {app.translator.trans('forumaker-bento.admin.settings.plain_create_button')}
                 </Switch>
-                <p className="helpText">
-                  {app.translator.trans('forumaker-bento.admin.settings.plain_create_button_help')}
-                </p>
+                <p className="helpText">{app.translator.trans('forumaker-bento.admin.settings.plain_create_button_help')}</p>
               </div>
-
             </div>
           </section>
 
